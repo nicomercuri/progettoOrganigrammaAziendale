@@ -18,4 +18,8 @@ public class Organigramma {
     public void setNodoRadice(NodoComposito nodoRadice) {
         this.nodoRadice = nodoRadice;
     }
+
+    public void reset() {
+        this.nodoRadice = null;
+    }
 }
