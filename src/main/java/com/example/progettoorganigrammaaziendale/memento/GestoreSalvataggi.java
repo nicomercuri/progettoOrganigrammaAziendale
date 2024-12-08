@@ -1,7 +1,6 @@
 package com.example.progettoorganigrammaaziendale.memento;
 
 import com.example.progettoorganigrammaaziendale.composite.*;
-
 import java.io.*;
 
 public class GestoreSalvataggi {
