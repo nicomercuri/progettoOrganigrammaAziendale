@@ -1,8 +1,9 @@
 package com.example.progettoorganigrammaaziendale.composite;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Ruolo {
+public class Ruolo implements Serializable {
 
     private String nomeRuolo;
 

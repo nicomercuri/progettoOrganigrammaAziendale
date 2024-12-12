@@ -1,11 +1,13 @@
 package com.example.progettoorganigrammaaziendale.composite;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Dipendente {
+public class Dipendente implements Serializable {
 
     private String nome, cognome;
     private Ruolo ruolo; //devo fare attenzione perchè probabilmente un dipendente può avere più ruoli
+    //l'ideale sarebbe avere una mappa nodo-ruolo (FARE IN FUTURO!!!!)
 
     public Dipendente(String nome, String cognome, Ruolo ruolo) {
         this.nome = nome;

@@ -1,9 +1,10 @@
 package com.example.progettoorganigrammaaziendale.composite;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Organigramma {
+public class Organigramma implements Serializable {
 
     //questa classe mi serve per accedere al nodo radice dell'organigramma. Questo mi permette di accedere
     //a tutte le informazioni della gerarchia
