@@ -52,4 +52,10 @@ public class Organigramma {
         }
         return null;
     }
+
+    public NodoComposito trovaPadre(NodoComposito nodo) {
+        if(nodoRadice == nodo)
+            return null; //in quanto la radice non ha un padre
+        return nodoRadice.trovaPadre(nodo);
+    }
 }

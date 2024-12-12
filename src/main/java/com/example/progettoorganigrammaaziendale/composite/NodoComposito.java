@@ -76,4 +76,17 @@ public class NodoComposito implements NodoIF, Serializable {
     public List<Dipendente> getDipendenti() {
         return new ArrayList<>(dipendenti);
     }
+
+    public NodoComposito trovaPadre(NodoComposito nodo) {
+        for(NodoIF figlio: figli) {
+            if (figlio == nodo)
+                return this;
+            if(figlio instanceof NodoComposito){
+                NodoComposito risultato = ((NodoComposito) figlio).trovaPadre(nodo);
+                if(risultato != null)
+                    return risultato;
+            }
+        }
+        return null;
+    }
 }
