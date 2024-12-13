@@ -1,7 +1,7 @@
 package com.example.progettoorganigrammaaziendale.GUI;
 
+import com.example.progettoorganigrammaaziendale.command.GestoreComandi;
 import com.example.progettoorganigrammaaziendale.composite.NodoComposito;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -11,7 +11,10 @@ public class PannelloOrganigramma extends JPanel {
 
     //qua ci gestisco tutta la parte grafica sui nodi dell'organigramma
 
-    public PannelloOrganigramma() {
+    private GestoreComandi gestoreComandi;
+
+    public PannelloOrganigramma(GestoreComandi gestoreComandi) {
+        this.gestoreComandi = gestoreComandi;
 
         setBackground(Color.WHITE);
 
@@ -30,7 +33,7 @@ public class PannelloOrganigramma extends JPanel {
 
 
     private void mostraMenuContestuale(NodoComposito nodoSelezionato, int x, int y) {
-        MenuContestuale menu = new MenuContestuale(nodoSelezionato);
+        MenuContestuale menu = new MenuContestuale(nodoSelezionato,gestoreComandi);
         menu.show(this, x, y);
     }
 }

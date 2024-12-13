@@ -6,10 +6,10 @@ import java.util.Objects;
 public class Dipendente implements Serializable {
 
     private String nome, cognome;
-    private Ruolo ruolo; //devo fare attenzione perchè probabilmente un dipendente può avere più ruoli
+    private String ruolo; //devo fare attenzione perchè probabilmente un dipendente può avere più ruoli
     //l'ideale sarebbe avere una mappa nodo-ruolo (FARE IN FUTURO!!!!)
 
-    public Dipendente(String nome, String cognome, Ruolo ruolo) {
+    public Dipendente(String nome, String cognome, String ruolo) {
         this.nome = nome;
         this.cognome = cognome;
         this.ruolo = ruolo;
@@ -31,11 +31,11 @@ public class Dipendente implements Serializable {
         this.cognome = cognome;
     }
 
-    public Ruolo getRuolo() {
+    public String getRuolo() {
         return ruolo;
     }
 
-    public void setRuolo(Ruolo ruolo) {
+    public void setRuolo(String ruolo) {
         this.ruolo = ruolo;
     }
 

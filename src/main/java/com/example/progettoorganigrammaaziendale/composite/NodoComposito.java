@@ -27,8 +27,8 @@ public class NodoComposito implements NodoIF, Serializable {
 
     @Override
     public void rimuoviNodo(NodoIF nodo) {
-        if(!this.getFigli().isEmpty())
-            this.getFigli().clear();
+        if(!nodo.getFigli().isEmpty())
+            nodo.getFigli().clear();
         figli.remove(nodo);
     }
 
