@@ -17,13 +17,13 @@ public class FramePrincipale extends JFrame {
     public FramePrincipale() {
         super("Organigramma Aziendale");
         gestoreSalvataggi = new GestoreSalvataggi();
-        organigramma = caricaOCreaOrganigramma();
         gestoreComandi = new GestoreComandi();
-        pannelloOrganigramma = new PannelloOrganigramma(gestoreComandi); //da sistemare
+        organigramma = caricaOCreaOrganigramma();
+        pannelloOrganigramma = new PannelloOrganigramma(gestoreComandi, organigramma);
 
         setLayout(new BorderLayout());
         add(new Toolbar(this), BorderLayout.NORTH); //qui ci metto i vari bottoni (aggiungi, salva, etc.)
-        add(new JScrollPane(pannelloOrganigramma), BorderLayout.CENTER); //questo gestirà l'organigramma
+        add(new JScrollPane(pannelloOrganigramma), BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);

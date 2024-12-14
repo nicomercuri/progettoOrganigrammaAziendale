@@ -14,7 +14,7 @@ public class GestoreComandi {
     }
 
     public void undo(){
-        if(!comandiAnnullati.isEmpty()){
+        if(!comandiEseguiti.isEmpty()){
             ComandoIF comando = comandiEseguiti.pop();
             comando.annulla();
             comandiAnnullati.push(comando);

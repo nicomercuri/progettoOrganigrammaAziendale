@@ -2,7 +2,6 @@ package com.example.progettoorganigrammaaziendale.command;
 
 import com.example.progettoorganigrammaaziendale.composite.NodoComposito;
 import com.example.progettoorganigrammaaziendale.composite.NodoIF;
-
 import java.util.ArrayList;
 import java.util.List;
 

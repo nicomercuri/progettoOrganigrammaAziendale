@@ -1,9 +1,6 @@
 package com.example.progettoorganigrammaaziendale.GUI;
 
-import com.example.progettoorganigrammaaziendale.command.ComandoAggiungiDipendente;
-import com.example.progettoorganigrammaaziendale.command.ComandoAggiungiRuolo;
-import com.example.progettoorganigrammaaziendale.command.ComandoRimuoviDipendente;
-import com.example.progettoorganigrammaaziendale.command.GestoreComandi;
+import com.example.progettoorganigrammaaziendale.command.*;
 import com.example.progettoorganigrammaaziendale.composite.Dipendente;
 import com.example.progettoorganigrammaaziendale.composite.NodoComposito;
 import com.example.progettoorganigrammaaziendale.composite.Ruolo;
@@ -31,7 +28,7 @@ public class MenuContestuale extends JPopupMenu {
 
         JMenuItem listaDipendenti = new JMenuItem("Lista Dipendenti");
         listaDipendenti.addActionListener(e -> dipendentiNodoSelezionato(nodoSelezionato));
-        add(listaRuoli);
+        add(listaDipendenti);
 
         JMenuItem aggiungiDipendente = new JMenuItem("Aggiungi Dipendente");
         aggiungiDipendente.addActionListener(e -> aggiungiDipendente(nodoSelezionato,gestoreComandi));
@@ -43,6 +40,9 @@ public class MenuContestuale extends JPopupMenu {
 
     }
 
+
+    //SISTEMARE: nel menu a tendina dei dipendenti presenti mi appare anche il ruolo dato che il
+    //toString di Dipendente ha anche il ruolo
     private void rimuoviDipendente(NodoComposito nodoSelezionato, GestoreComandi gestoreComandi) {
         List<Dipendente> dipendentiDisponibili = nodoSelezionato.getDipendenti();
         if (dipendentiDisponibili.isEmpty()) {
@@ -63,6 +63,8 @@ public class MenuContestuale extends JPopupMenu {
         }
     }
 
+
+    //sistemare: migliorare dimensioni dialog
     private void aggiungiDipendente(NodoComposito nodoSelezionato, GestoreComandi gestoreComandi) {
         JDialog dialog = new JDialog((Frame) null, "Aggiungi Dipendente", true);
         dialog.setLayout(new GridLayout(4,2,10,3));
@@ -127,7 +129,7 @@ public class MenuContestuale extends JPopupMenu {
                 null
         );
         if (ruoloDaRimuovere != null) {
-            gestoreComandi.eseguiComando(new ComandoAggiungiRuolo(nodoSelezionato, ruoloDaRimuovere));
+            gestoreComandi.eseguiComando(new ComandoRimuoviRuolo(nodoSelezionato, ruoloDaRimuovere));
         }
     }
 

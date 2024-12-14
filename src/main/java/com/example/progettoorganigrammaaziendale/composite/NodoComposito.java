@@ -10,12 +10,14 @@ public class NodoComposito implements NodoIF, Serializable {
     private List<NodoIF> figli;
     private List<Ruolo> ruoli;
     private List<Dipendente> dipendenti;
+    private int larghezza; //questo mi serve la il pannello della GUI
 
     public NodoComposito(String nome) {
         this.nome = nome;
         this.figli = new ArrayList<>();
         this.ruoli = new ArrayList<>();
         this.dipendenti = new ArrayList<>();
+        this.larghezza = 0;
     }
 
     @Override
@@ -88,5 +90,13 @@ public class NodoComposito implements NodoIF, Serializable {
             }
         }
         return null;
+    }
+
+    public int getLarghezza() {
+        return larghezza;
+    }
+
+    public void setLarghezza(int larghezza) {
+        this.larghezza = larghezza;
     }
 }
