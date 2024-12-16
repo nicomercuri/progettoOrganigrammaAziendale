@@ -2,21 +2,23 @@ package com.example.progettoorganigrammaaziendale.composite;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NodoComposito implements NodoIF, Serializable {
 
     private String nome;
     private List<NodoIF> figli;
     private List<Ruolo> ruoli;
-    private List<Dipendente> dipendenti;
+    private Map<Dipendente,Ruolo> dipendenti;
     private int larghezza; //questo mi serve la il pannello della GUI
 
     public NodoComposito(String nome) {
         this.nome = nome;
         this.figli = new ArrayList<>();
         this.ruoli = new ArrayList<>();
-        this.dipendenti = new ArrayList<>();
+        this.dipendenti = new HashMap<>();
         this.larghezza = 0;
     }
 
@@ -65,18 +67,18 @@ public class NodoComposito implements NodoIF, Serializable {
     }
 
     @Override
-    public void aggiungiDipendente(Dipendente dipendente) {
-        dipendenti.add(dipendente);
+    public void aggiungiDipendente(Dipendente dipendente, Ruolo ruolo) {
+        dipendenti.put(dipendente, ruolo);
     }
 
     @Override
-    public void rimuoviDipendente(Dipendente dipendente) {
-        dipendenti.remove(dipendente);
+    public void rimuoviDipendente(Dipendente dipendente, Ruolo ruolo) {
+        dipendenti.remove(dipendente, ruolo);
     }
 
     @Override
-    public List<Dipendente> getDipendenti() {
-        return new ArrayList<>(dipendenti);
+    public Map<Dipendente,Ruolo> getDipendenti() {
+        return new HashMap<>(dipendenti);
     }
 
     public NodoComposito trovaPadre(NodoComposito nodo) {

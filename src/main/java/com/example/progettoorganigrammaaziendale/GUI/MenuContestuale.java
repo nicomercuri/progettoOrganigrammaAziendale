@@ -7,6 +7,7 @@ import com.example.progettoorganigrammaaziendale.composite.Ruolo;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Set;
 
 public class MenuContestuale extends JPopupMenu {
 
@@ -44,7 +45,7 @@ public class MenuContestuale extends JPopupMenu {
     //SISTEMARE: nel menu a tendina dei dipendenti presenti mi appare anche il ruolo dato che il
     //toString di Dipendente ha anche il ruolo
     private void rimuoviDipendente(NodoComposito nodoSelezionato, GestoreComandi gestoreComandi) {
-        List<Dipendente> dipendentiDisponibili = nodoSelezionato.getDipendenti();
+        Set<Dipendente> dipendentiDisponibili = nodoSelezionato.getDipendenti().keySet();
         if (dipendentiDisponibili.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Non ci sono dipendenti da rimuovere!", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
@@ -59,7 +60,8 @@ public class MenuContestuale extends JPopupMenu {
                 null
         );
         if (dipendenteDaRimuovere != null) {
-            gestoreComandi.eseguiComando(new ComandoRimuoviDipendente(nodoSelezionato, dipendenteDaRimuovere));
+            Ruolo ruoloDIpendenteDaRimuovere = nodoSelezionato.getDipendenti().get(dipendenteDaRimuovere);
+            gestoreComandi.eseguiComando(new ComandoRimuoviDipendente(nodoSelezionato, dipendenteDaRimuovere,ruoloDIpendenteDaRimuovere));
         }
     }
 
@@ -68,7 +70,7 @@ public class MenuContestuale extends JPopupMenu {
     private void aggiungiDipendente(NodoComposito nodoSelezionato, GestoreComandi gestoreComandi) {
         JDialog dialog = new JDialog((Frame) null, "Aggiungi Dipendente", true);
         dialog.setLayout(new GridLayout(4,2,10,3));
-        dialog.setSize(300,300);
+        dialog.setSize(300,175);
         dialog.setLocationRelativeTo(null);
 
         JLabel labelNomeDipendente = new JLabel("Nome:");
@@ -77,9 +79,9 @@ public class MenuContestuale extends JPopupMenu {
         JTextField textFieldCognomeDipendente = new JTextField();
 
         JLabel labelRuoloDipendente = new JLabel("Ruolo:");
-        JComboBox<String> comboRuoli =  new JComboBox<>();
+        JComboBox<Ruolo> comboRuoli =  new JComboBox<>();
         for(Ruolo ruolo: nodoSelezionato.getRuoli()) {
-            comboRuoli.addItem(ruolo.getNomeRuolo());
+            comboRuoli.addItem(ruolo);
         }
 
         JButton btnConferma = new JButton("Conferma");
@@ -97,11 +99,11 @@ public class MenuContestuale extends JPopupMenu {
         btnConferma.addActionListener(e -> {
             String nome = textFieldNomeDipendente.getText().trim();
             String cognome = textFieldCognomeDipendente.getText().trim();
-            String ruolo = (String) comboRuoli.getSelectedItem();
+            Ruolo ruolo = (Ruolo) comboRuoli.getSelectedItem();
 
             if (!nome.isBlank() && !cognome.isBlank() && ruolo != null) {
-                Dipendente nuovoDipendente = new Dipendente(nome, cognome, ruolo);
-                gestoreComandi.eseguiComando(new ComandoAggiungiDipendente(nodoSelezionato, nuovoDipendente));
+                Dipendente nuovoDipendente = new Dipendente(nome, cognome);
+                gestoreComandi.eseguiComando(new ComandoAggiungiDipendente(nodoSelezionato, nuovoDipendente,ruolo));
                 dialog.dispose();
             } else {
                 JOptionPane.showMessageDialog(dialog, "Tutti i campi devono essere compilati.", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -150,8 +152,9 @@ public class MenuContestuale extends JPopupMenu {
 
     private void dipendentiNodoSelezionato(NodoComposito nodoSelezionato) {
         StringBuilder dipendenti = new StringBuilder("Dipendenti di " + nodoSelezionato.getNome() + ":\n");
-        for (Dipendente dipendente : nodoSelezionato.getDipendenti()) {
-            dipendenti.append(dipendente.toString()).append("\n");
+        for (Dipendente dipendente : nodoSelezionato.getDipendenti().keySet()) {
+            Ruolo ruolo = nodoSelezionato.getDipendenti().get(dipendente);
+            dipendenti.append("-").append(ruolo.getNomeRuolo()).append(": ").append(dipendente.toString()).append("\n");
         }
         JOptionPane.showMessageDialog(this, dipendenti.toString(), "Lista Dipendenti", JOptionPane.INFORMATION_MESSAGE);
     }

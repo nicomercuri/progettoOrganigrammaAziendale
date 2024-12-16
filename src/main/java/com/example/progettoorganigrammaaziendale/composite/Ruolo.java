@@ -31,4 +31,9 @@ public class Ruolo implements Serializable {
     public int hashCode() {
         return Objects.hashCode(nomeRuolo);
     }
+
+    @Override
+    public String toString() {
+        return this.nomeRuolo;
+    }
 }

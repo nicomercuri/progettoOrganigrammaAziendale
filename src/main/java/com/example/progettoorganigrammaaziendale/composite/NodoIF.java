@@ -2,6 +2,7 @@ package com.example.progettoorganigrammaaziendale.composite;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public interface NodoIF extends Serializable {
 
@@ -16,7 +17,7 @@ public interface NodoIF extends Serializable {
     void rimuoviRuolo(Ruolo ruolo);
     List<Ruolo> getRuoli();
 
-    void aggiungiDipendente(Dipendente dipendente);
-    void rimuoviDipendente(Dipendente dipendente);
-    List<Dipendente> getDipendenti();
+    void aggiungiDipendente(Dipendente dipendente, Ruolo ruolo);
+    void rimuoviDipendente(Dipendente dipendente, Ruolo ruolo);
+    Map<Dipendente,Ruolo> getDipendenti();
 }

@@ -26,8 +26,10 @@ public class GestoreSalvataggi {
             copia.aggiungiNodo(copiaOrganigramma((NodoComposito) nodoFiglio));
         for(Ruolo ruolo: nodoRadice.getRuoli())
             copia.aggiungiRuolo(new Ruolo(ruolo.getNomeRuolo()));
-        for(Dipendente dipendente: nodoRadice.getDipendenti())
-            copia.aggiungiDipendente(new Dipendente(dipendente.getNome(),dipendente.getCognome(),dipendente.getRuolo()));
+        for(Dipendente dipendente: nodoRadice.getDipendenti().keySet()) {
+            Ruolo ruolo = nodoRadice.getDipendenti().get(dipendente);
+            copia.aggiungiDipendente(new Dipendente(dipendente.getNome(), dipendente.getCognome()), new Ruolo(ruolo.getNomeRuolo()));
+        }
         return copia;
     }
 
@@ -38,7 +40,6 @@ public class GestoreSalvataggi {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(percorso))) {
             ultimoSalvataggio = (Memento) ois.readObject();
             if (ultimoSalvataggio != null) {
-                // Usa la nuova versione di caricaStato
                 caricaStato(organigramma);
             } else {
                 throw new IllegalStateException("Il file non contiene un salvataggio valido.");
