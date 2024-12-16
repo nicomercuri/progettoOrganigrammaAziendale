@@ -7,7 +7,7 @@ import java.util.List;
 public class Organigramma implements Serializable {
 
     //questa classe mi serve per accedere al nodo radice dell'organigramma. Questo mi permette di accedere
-    //a tutte le informazioni della gerarchia
+    //a tutte le informazioni della struttura
 
     private NodoComposito nodoRadice;
 

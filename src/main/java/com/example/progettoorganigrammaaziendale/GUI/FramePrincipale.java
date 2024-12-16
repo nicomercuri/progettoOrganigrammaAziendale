@@ -22,7 +22,7 @@ public class FramePrincipale extends JFrame {
         pannelloOrganigramma = new PannelloOrganigramma(gestoreComandi, organigramma);
 
         setLayout(new BorderLayout());
-        add(new Toolbar(this), BorderLayout.NORTH); //qui ci metto i vari bottoni (aggiungi, salva, etc.)
+        add(new Toolbar(this), BorderLayout.NORTH);
         add(new JScrollPane(pannelloOrganigramma), BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

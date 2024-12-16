@@ -5,6 +5,7 @@ import com.example.progettoorganigrammaaziendale.composite.NodoComposito;
 import com.example.progettoorganigrammaaziendale.composite.Organigramma;
 
 import javax.swing.*;
+import java.util.Arrays;
 
 public class Toolbar extends JToolBar {
 
@@ -75,24 +76,33 @@ public class Toolbar extends JToolBar {
     private void aggiungiNodo(FramePrincipale framePrincipale) {
         GestoreComandi gestoreComandi = framePrincipale.getGestoreComandi();
         NodoComposito nodoPadre = selezionaNodo(framePrincipale, "Seleziona il nodo padre");
-        if(nodoPadre != null) {
+        if (nodoPadre != null) {
             String nomeNodoNuovo = JOptionPane.showInputDialog(framePrincipale, "Inserisci il nome del nuovo nodo");
+            String[] nomiDisponibili = framePrincipale.getOrganigramma().getNomiNodiPresenti();
             if (nomeNodoNuovo != null && !nomeNodoNuovo.isBlank()) {
-                gestoreComandi.eseguiComando(new ComandoAggiungiNodo(nodoPadre, nomeNodoNuovo));
-                framePrincipale.getPannelloOrganigramma().repaint();
+                boolean nomeGiaPresente = Arrays.asList(nomiDisponibili).contains(nomeNodoNuovo);
+                if (nomeGiaPresente) {
+                    JOptionPane.showMessageDialog(framePrincipale,
+                            "È già presente un nodo con questo nome.",
+                            "Errore",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    gestoreComandi.eseguiComando(new ComandoAggiungiNodo(nodoPadre, nomeNodoNuovo));
+                    framePrincipale.getPannelloOrganigramma().repaint();
+                }
             }
         }
     }
 
-    private NodoComposito selezionaNodo(FramePrincipale frame, String messaggio) {
-        String[] nomiDisponibili = frame.getOrganigramma().getNomiNodiPresenti();
+    private NodoComposito selezionaNodo(FramePrincipale framePrincipale, String messaggio) {
+        String[] nomiDisponibili = framePrincipale.getOrganigramma().getNomiNodiPresenti();
         if(nomiDisponibili.length == 0){
-            JOptionPane.showMessageDialog(frame, "Non vi sono nodi disponibili","Errore", JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(framePrincipale, "Non vi sono nodi disponibili","Errore", JOptionPane.ERROR_MESSAGE );
             return null;
         }
-        String scelta = (String) JOptionPane.showInputDialog(frame,messaggio, "Seleziona Nodo",
+        String scelta = (String) JOptionPane.showInputDialog(framePrincipale,messaggio, "Seleziona Nodo",
                 JOptionPane.QUESTION_MESSAGE, null, nomiDisponibili, nomiDisponibili[0]);
-        return scelta != null ? frame.getOrganigramma().restituisciNodoSelezionato(scelta) : null;
+        return scelta != null ? framePrincipale.getOrganigramma().restituisciNodoSelezionato(scelta) : null;
     }
 
     private void rinominaNodo(FramePrincipale framePrincipale) {
@@ -106,15 +116,21 @@ public class Toolbar extends JToolBar {
             }
         }
     }
+
     private void rimuoviNodo(FramePrincipale framePrincipale) {
         GestoreComandi gestoreComandi = framePrincipale.getGestoreComandi();
         NodoComposito nodoDaRimuovere = selezionaNodo(framePrincipale, "Seleziona il nodo da rimuovere");
         Organigramma organigramma = framePrincipale.getOrganigramma();
-        if(nodoDaRimuovere != null) {
-            int conferma = JOptionPane.showConfirmDialog(framePrincipale,
-                    "ATTENZIONE! Eliminando questo nodo elimini anche i figli (se ne ha). Confermi?", //provare poi che appare questo messaggio solo se ha figli
-                    "Conferma Rimozione",
-                    JOptionPane.YES_NO_OPTION);
+        if (nodoDaRimuovere != null) {
+            int conferma = JOptionPane.YES_OPTION;
+            if (!nodoDaRimuovere.getFigli().isEmpty()) {
+                conferma = JOptionPane.showConfirmDialog(
+                        framePrincipale,
+                        "ATTENZIONE! Eliminando questo nodo elimini anche i figli. Vuoi procedere con l'eliminazione?",
+                        "Conferma Rimozione",
+                        JOptionPane.YES_NO_OPTION
+                );
+            }
             if (conferma == JOptionPane.YES_OPTION) {
                 NodoComposito nodoPadre = organigramma.trovaPadre(nodoDaRimuovere);
                 if (nodoPadre == null && nodoDaRimuovere == organigramma.getNodoRadice()) {

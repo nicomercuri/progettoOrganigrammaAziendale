@@ -35,7 +35,7 @@ public class GestoreSalvataggi {
 
     public void caricaDaFile(String percorso, Organigramma organigramma) throws IOException, ClassNotFoundException {
         if (organigramma == null) {
-            throw new IllegalArgumentException("Errore nel caricamento: organigramma = null");
+            throw new IllegalArgumentException("Errore nel caricamento: organigramma non inizializzato");
         }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(percorso))) {
             ultimoSalvataggio = (Memento) ois.readObject();
@@ -51,7 +51,7 @@ public class GestoreSalvataggi {
         organigramma.reset();
         organigramma.setNodoRadice(copiaOrganigramma(ultimoSalvataggio.getNodoRadice()));
         //ricopiare la radice di ultimo salvataggio mi serve per isolarlo dall'organigramma
+        //e quindi lavorare su una copia e non direttamente su ultimo salvataggio
     }
-
 
 }

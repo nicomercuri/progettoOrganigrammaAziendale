@@ -41,9 +41,6 @@ public class MenuContestuale extends JPopupMenu {
 
     }
 
-
-    //SISTEMARE: nel menu a tendina dei dipendenti presenti mi appare anche il ruolo dato che il
-    //toString di Dipendente ha anche il ruolo
     private void rimuoviDipendente(NodoComposito nodoSelezionato, GestoreComandi gestoreComandi) {
         Set<Dipendente> dipendentiDisponibili = nodoSelezionato.getDipendenti().keySet();
         if (dipendentiDisponibili.isEmpty()) {
@@ -65,8 +62,6 @@ public class MenuContestuale extends JPopupMenu {
         }
     }
 
-
-    //sistemare: migliorare dimensioni dialog
     private void aggiungiDipendente(NodoComposito nodoSelezionato, GestoreComandi gestoreComandi) {
         JDialog dialog = new JDialog((Frame) null, "Aggiungi Dipendente", true);
         dialog.setLayout(new GridLayout(4,2,10,3));
@@ -111,7 +106,6 @@ public class MenuContestuale extends JPopupMenu {
         });
 
         btnAnnulla.addActionListener(e -> dialog.dispose());
-
         dialog.setVisible(true);
     }
 

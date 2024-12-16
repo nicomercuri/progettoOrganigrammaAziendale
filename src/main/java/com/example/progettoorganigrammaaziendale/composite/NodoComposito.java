@@ -12,7 +12,7 @@ public class NodoComposito implements NodoIF, Serializable {
     private List<NodoIF> figli;
     private List<Ruolo> ruoli;
     private Map<Dipendente,Ruolo> dipendenti;
-    private int larghezza; //questo mi serve la il pannello della GUI
+    private int larghezza; //questo mi serve per il pannello della GUI
 
     public NodoComposito(String nome) {
         this.nome = nome;
@@ -24,8 +24,6 @@ public class NodoComposito implements NodoIF, Serializable {
 
     @Override
     public void aggiungiNodo(NodoIF nodo) {
-        if(figli.contains(nodo))
-            throw new IllegalArgumentException("Nodo già presente");
         figli.add(nodo);
     }
 
@@ -68,11 +66,15 @@ public class NodoComposito implements NodoIF, Serializable {
 
     @Override
     public void aggiungiDipendente(Dipendente dipendente, Ruolo ruolo) {
+        if(dipendenti.containsKey(dipendente))
+            throw new IllegalArgumentException("Dipendente già esistente");
         dipendenti.put(dipendente, ruolo);
     }
 
     @Override
     public void rimuoviDipendente(Dipendente dipendente, Ruolo ruolo) {
+        //qua fare il controllo se il dipendente è presente nella mappa non mi serve perchè
+        //tanto dalla GUI posso selezionare solo i dipendenti esistenti
         dipendenti.remove(dipendente, ruolo);
     }
 

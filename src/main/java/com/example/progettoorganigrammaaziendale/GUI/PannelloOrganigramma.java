@@ -82,11 +82,9 @@ public class PannelloOrganigramma extends JPanel {
         int textX = x - textWidth / 2;
         int textY = y + (altezzaNodo / 2) + (fm.getAscent() / 2) - 2;
         g2d.drawString(nodo.getNome(), textX, textY);
-
         if (!nodo.getFigli().isEmpty()) {
             int startX = x - nodo.getLarghezza() / 2;
             int childY = y + altezzaNodo + spazioVerticale;
-
             for (NodoIF figlio : nodo.getFigli()) {
                 NodoComposito figlioNodo = (NodoComposito) figlio;
                 int childX = startX + figlioNodo.getLarghezza() / 2;

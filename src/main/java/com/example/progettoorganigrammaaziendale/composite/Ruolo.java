@@ -15,10 +15,6 @@ public class Ruolo implements Serializable {
         return nomeRuolo;
     }
 
-    public void setNomeRuolo(String nomeRuolo) {
-        this.nomeRuolo = nomeRuolo;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

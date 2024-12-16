@@ -1,10 +1,9 @@
 package com.example.progettoorganigrammaaziendale.composite;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public interface NodoIF extends Serializable {
+public interface NodoIF {
 
     void aggiungiNodo(NodoIF nodo);
     void rimuoviNodo(NodoIF nodo);
