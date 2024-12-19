@@ -3,7 +3,6 @@ package com.example.progettoorganigrammaaziendale.GUI;
 import com.example.progettoorganigrammaaziendale.command.*;
 import com.example.progettoorganigrammaaziendale.composite.NodoComposito;
 import com.example.progettoorganigrammaaziendale.composite.Organigramma;
-
 import javax.swing.*;
 import java.util.Arrays;
 

@@ -29,4 +29,14 @@ public class GestoreComandi {
         }
     }
 
+    //-------------------metodi per il testing-----------------
+
+    public int sizeComandiEseguiti() {
+        return comandiEseguiti.size();
+    }
+
+    public int sizeComandiAnnullati() {
+        return comandiAnnullati.size();
+    }
+
 }
