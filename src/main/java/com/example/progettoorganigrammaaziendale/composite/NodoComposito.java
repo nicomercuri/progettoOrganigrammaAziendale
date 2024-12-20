@@ -66,8 +66,6 @@ public class NodoComposito implements NodoIF, Serializable {
 
     @Override
     public void aggiungiDipendente(Dipendente dipendente, Ruolo ruolo) {
-        if(dipendenti.containsKey(dipendente))
-            throw new IllegalArgumentException("Dipendente già esistente");
         dipendenti.put(dipendente, ruolo);
     }
 

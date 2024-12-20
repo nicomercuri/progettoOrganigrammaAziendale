@@ -98,8 +98,13 @@ public class MenuContestuale extends JPopupMenu {
 
             if (!nome.isBlank() && !cognome.isBlank() && ruolo != null) {
                 Dipendente nuovoDipendente = new Dipendente(nome, cognome);
-                gestoreComandi.eseguiComando(new ComandoAggiungiDipendente(nodoSelezionato, nuovoDipendente,ruolo));
-                dialog.dispose();
+                if(nodoSelezionato.getDipendenti().containsKey(nuovoDipendente)) {
+                    JOptionPane.showMessageDialog(dialog, "Il dipendente è già presente", "Errore", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    gestoreComandi.eseguiComando(new ComandoAggiungiDipendente(nodoSelezionato, nuovoDipendente, ruolo));
+                    dialog.dispose();
+                }
             } else {
                 JOptionPane.showMessageDialog(dialog, "Tutti i campi devono essere compilati.", "Errore", JOptionPane.ERROR_MESSAGE);
             }
@@ -133,7 +138,11 @@ public class MenuContestuale extends JPopupMenu {
         String nomeRuolo = JOptionPane.showInputDialog(this, "Inserisci il ruolo:", "Aggiungi Ruolo", JOptionPane.PLAIN_MESSAGE);
         if(nomeRuolo != null && !nomeRuolo.isBlank()) {
             Ruolo ruolo = new Ruolo(nomeRuolo);
-            gestoreComandi.eseguiComando(new ComandoAggiungiRuolo(nodoSelezionato, ruolo));
+            if(nodoSelezionato.getRuoli().contains(ruolo)) {
+                JOptionPane.showMessageDialog(this, "Il ruolo è già presente", "Errore", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+                gestoreComandi.eseguiComando(new ComandoAggiungiRuolo(nodoSelezionato, ruolo));
         }
     }
 

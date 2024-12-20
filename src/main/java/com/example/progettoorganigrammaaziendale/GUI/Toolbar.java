@@ -133,7 +133,7 @@ public class Toolbar extends JToolBar {
             if (conferma == JOptionPane.YES_OPTION) {
                 NodoComposito nodoPadre = organigramma.trovaPadre(nodoDaRimuovere);
                 if (nodoPadre == null && nodoDaRimuovere == organigramma.getNodoRadice()) {
-                    JOptionPane.showMessageDialog(framePrincipale, "Impossibile rimuovere la radice.");
+                    JOptionPane.showMessageDialog(framePrincipale, "Impossibile rimuovere la radice","Errore", JOptionPane.ERROR_MESSAGE );
                 } else {
                     gestoreComandi.eseguiComando(new ComandoRimuoviNodo(nodoPadre, nodoDaRimuovere));
                     framePrincipale.getPannelloOrganigramma().repaint();
