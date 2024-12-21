@@ -25,7 +25,6 @@ public class ComandoSalva implements ComandoIF{
         }
     }
 
-
     @Override
     public void annulla() {
         throw new UnsupportedOperationException("Impossibile annullare un salvataggio");

@@ -2,7 +2,6 @@ package com.example.progettoorganigrammaaziendale.command;
 
 import com.example.progettoorganigrammaaziendale.composite.Organigramma;
 import com.example.progettoorganigrammaaziendale.memento.GestoreSalvataggi;
-
 import java.io.IOException;
 
 public class ComandoCarica implements ComandoIF{

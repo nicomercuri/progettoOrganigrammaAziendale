@@ -66,7 +66,10 @@ public class FramePrincipale extends JFrame {
     }
 
     private String chiediNomeRadice() {
-        String nomeRadice = JOptionPane.showInputDialog(this, "Inserisci il nome del nodo radice:", "Nodo Radice", JOptionPane.PLAIN_MESSAGE);
+        String nomeRadice = JOptionPane.showInputDialog(this,
+                "Inserisci il nome del nodo radice:",
+                "Nodo Radice",
+                JOptionPane.PLAIN_MESSAGE);
         if (nomeRadice == null)
             System.exit(0);
         if (nomeRadice.isBlank())

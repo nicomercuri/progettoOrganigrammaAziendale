@@ -5,6 +5,7 @@ import com.example.progettoorganigrammaaziendale.composite.NodoComposito;
 import com.example.progettoorganigrammaaziendale.composite.Ruolo;
 
 public class ComandoRimuoviDipendente implements ComandoIF {
+
     private NodoComposito nodo;
     private Dipendente dipendente;
     private Ruolo ruolo;

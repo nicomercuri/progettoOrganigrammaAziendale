@@ -44,7 +44,10 @@ public class MenuContestuale extends JPopupMenu {
     private void rimuoviDipendente(NodoComposito nodoSelezionato, GestoreComandi gestoreComandi) {
         Set<Dipendente> dipendentiDisponibili = nodoSelezionato.getDipendenti().keySet();
         if (dipendentiDisponibili.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Non ci sono dipendenti da rimuovere!", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Non ci sono dipendenti da rimuovere!",
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
         Dipendente dipendenteDaRimuovere = (Dipendente) JOptionPane.showInputDialog(
@@ -75,9 +78,8 @@ public class MenuContestuale extends JPopupMenu {
 
         JLabel labelRuoloDipendente = new JLabel("Ruolo:");
         JComboBox<Ruolo> comboRuoli =  new JComboBox<>();
-        for(Ruolo ruolo: nodoSelezionato.getRuoli()) {
+        for(Ruolo ruolo: nodoSelezionato.getRuoli())
             comboRuoli.addItem(ruolo);
-        }
 
         JButton btnConferma = new JButton("Conferma");
         JButton btnAnnulla = new JButton("Annulla");
@@ -99,14 +101,20 @@ public class MenuContestuale extends JPopupMenu {
             if (!nome.isBlank() && !cognome.isBlank() && ruolo != null) {
                 Dipendente nuovoDipendente = new Dipendente(nome, cognome);
                 if(nodoSelezionato.getDipendenti().containsKey(nuovoDipendente)) {
-                    JOptionPane.showMessageDialog(dialog, "Il dipendente è già presente", "Errore", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialog,
+                            "Il dipendente è già presente",
+                            "Errore",
+                            JOptionPane.ERROR_MESSAGE);
                 }
                 else {
                     gestoreComandi.eseguiComando(new ComandoAggiungiDipendente(nodoSelezionato, nuovoDipendente, ruolo));
                     dialog.dispose();
                 }
             } else {
-                JOptionPane.showMessageDialog(dialog, "Tutti i campi devono essere compilati.", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(dialog,
+                        "Tutti i campi devono essere compilati.",
+                        "Errore",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -117,7 +125,10 @@ public class MenuContestuale extends JPopupMenu {
     private void rimuoviRuolo(NodoComposito nodoSelezionato, GestoreComandi gestoreComandi) {
         List<Ruolo> ruoliDisponibili = nodoSelezionato.getRuoli();
         if (ruoliDisponibili.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Non ci sono ruoli da rimuovere!", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Non ci sono ruoli da rimuovere!",
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
         Ruolo ruoloDaRimuovere = (Ruolo) JOptionPane.showInputDialog(
@@ -135,11 +146,17 @@ public class MenuContestuale extends JPopupMenu {
     }
 
     private void aggiungiRuolo(NodoComposito nodoSelezionato, GestoreComandi gestoreComandi) {
-        String nomeRuolo = JOptionPane.showInputDialog(this, "Inserisci il ruolo:", "Aggiungi Ruolo", JOptionPane.PLAIN_MESSAGE);
+        String nomeRuolo = JOptionPane.showInputDialog(this,
+                "Inserisci il ruolo:",
+                "Aggiungi Ruolo",
+                JOptionPane.PLAIN_MESSAGE);
         if(nomeRuolo != null && !nomeRuolo.isBlank()) {
             Ruolo ruolo = new Ruolo(nomeRuolo);
             if(nodoSelezionato.getRuoli().contains(ruolo)) {
-                JOptionPane.showMessageDialog(this, "Il ruolo è già presente", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "Il ruolo è già presente",
+                        "Errore",
+                        JOptionPane.ERROR_MESSAGE);
             }
             else
                 gestoreComandi.eseguiComando(new ComandoAggiungiRuolo(nodoSelezionato, ruolo));
@@ -150,7 +167,10 @@ public class MenuContestuale extends JPopupMenu {
         StringBuilder ruoli = new StringBuilder("Ruoli presenti in " + nodoSelezionato.getNome() + ":\n");
         for(Ruolo ruolo : nodoSelezionato.getRuoli())
             ruoli.append("- ").append(ruolo.getNomeRuolo()).append("\n");
-        JOptionPane.showMessageDialog(this, ruoli.toString(), "Lista Ruoli", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+                ruoli.toString(),
+                "Lista Ruoli",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void dipendentiNodoSelezionato(NodoComposito nodoSelezionato) {
@@ -159,7 +179,10 @@ public class MenuContestuale extends JPopupMenu {
             Ruolo ruolo = nodoSelezionato.getDipendenti().get(dipendente);
             dipendenti.append("-").append(ruolo.getNomeRuolo()).append(": ").append(dipendente.toString()).append("\n");
         }
-        JOptionPane.showMessageDialog(this, dipendenti.toString(), "Lista Dipendenti", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+                dipendenti.toString(),
+                "Lista Dipendenti",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

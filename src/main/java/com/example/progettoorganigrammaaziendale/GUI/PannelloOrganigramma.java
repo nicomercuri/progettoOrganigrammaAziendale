@@ -18,6 +18,8 @@ public class PannelloOrganigramma extends JPanel {
     private GestoreComandi gestoreComandi;
     private Organigramma organigramma;
     private final Map<NodoComposito, Rectangle> posizioneNodi;
+    private int larghezzaMax = 0; //questi due attributi mi servono per far
+    private int altezzaMax = 0; //attivare le barre di scorrimento
 
     public PannelloOrganigramma(GestoreComandi gestoreComandi, Organigramma organigramma) {
         this.gestoreComandi = gestoreComandi;
@@ -44,8 +46,16 @@ public class PannelloOrganigramma extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         posizioneNodi.clear();
+        larghezzaMax = 0;
+        altezzaMax = 0;
         calcolaLarghezzaSottoalbero(organigramma.getNodoRadice());
         disegnaNodo(g2d, organigramma.getNodoRadice(), getWidth() / 2, 50);
+        revalidate(); //questo fa sì che, se necessario, vengono "disegnate" le barre di scorrimento
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(larghezzaMax, altezzaMax);
     }
 
     private int calcolaLarghezzaSottoalbero(NodoComposito nodo) {
@@ -82,6 +92,10 @@ public class PannelloOrganigramma extends JPanel {
         int textX = x - textWidth / 2;
         int textY = y + (altezzaNodo / 2) + (fm.getAscent() / 2) - 2;
         g2d.drawString(nodo.getNome(), textX, textY);
+
+        larghezzaMax = Math.max(larghezzaMax, x + larghezzaNodo / 2);
+        altezzaMax = Math.max(altezzaMax, y + altezzaNodo + spazioVerticale);
+
         if (!nodo.getFigli().isEmpty()) {
             int startX = x - nodo.getLarghezza() / 2;
             int childY = y + altezzaNodo + spazioVerticale;

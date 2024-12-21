@@ -96,11 +96,19 @@ public class Toolbar extends JToolBar {
     private NodoComposito selezionaNodo(FramePrincipale framePrincipale, String messaggio) {
         String[] nomiDisponibili = framePrincipale.getOrganigramma().getNomiNodiPresenti();
         if(nomiDisponibili.length == 0){
-            JOptionPane.showMessageDialog(framePrincipale, "Non vi sono nodi disponibili","Errore", JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(framePrincipale,
+                    "Non vi sono nodi disponibili",
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE );
             return null;
         }
-        String scelta = (String) JOptionPane.showInputDialog(framePrincipale,messaggio, "Seleziona Nodo",
-                JOptionPane.QUESTION_MESSAGE, null, nomiDisponibili, nomiDisponibili[0]);
+        String scelta = (String) JOptionPane.showInputDialog(framePrincipale,
+                messaggio,
+                "Seleziona Nodo",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                nomiDisponibili,
+                nomiDisponibili[0]);
         return scelta != null ? framePrincipale.getOrganigramma().restituisciNodoSelezionato(scelta) : null;
     }
 
@@ -133,7 +141,10 @@ public class Toolbar extends JToolBar {
             if (conferma == JOptionPane.YES_OPTION) {
                 NodoComposito nodoPadre = organigramma.trovaPadre(nodoDaRimuovere);
                 if (nodoPadre == null && nodoDaRimuovere == organigramma.getNodoRadice()) {
-                    JOptionPane.showMessageDialog(framePrincipale, "Impossibile rimuovere la radice","Errore", JOptionPane.ERROR_MESSAGE );
+                    JOptionPane.showMessageDialog(framePrincipale,
+                            "Impossibile rimuovere la radice",
+                            "Errore",
+                            JOptionPane.ERROR_MESSAGE );
                 } else {
                     gestoreComandi.eseguiComando(new ComandoRimuoviNodo(nodoPadre, nodoDaRimuovere));
                     framePrincipale.getPannelloOrganigramma().repaint();
