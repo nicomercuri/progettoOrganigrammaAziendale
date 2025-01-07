@@ -1,5 +1,6 @@
 package com.example.progettoorganigrammaaziendale.composite;
 
+import com.example.progettoorganigrammaaziendale.memento.Memento;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +18,6 @@ public class Organigramma implements Serializable {
 
     public NodoComposito getNodoRadice() {
         return nodoRadice;
-    }
-
-    public void setNodoRadice(NodoComposito nodoRadice) {
-        this.nodoRadice = nodoRadice;
-    }
-
-    public void reset() {
-        this.nodoRadice = null;
     }
 
     public String[] getNomiNodiPresenti() {
@@ -59,4 +52,26 @@ public class Organigramma implements Serializable {
             return null; //in quanto la radice non ha un padre
         return nodoRadice.trovaPadre(nodo);
     }
+
+    public Memento creaMemento(){
+        return new Memento(copiaOrganigramma(nodoRadice));
+    }
+
+    public void ripristinaMemento(Memento memento){
+        this.nodoRadice = memento.getNodoRadice();
+    }
+
+    private NodoComposito copiaOrganigramma(NodoComposito nodoRadice) {
+        NodoComposito copia = new NodoComposito(nodoRadice.getNome());
+        for(NodoIF nodoFiglio: nodoRadice.getFigli())
+            copia.aggiungiNodo(copiaOrganigramma((NodoComposito) nodoFiglio));
+        for(Ruolo ruolo: nodoRadice.getRuoli())
+            copia.aggiungiRuolo(new Ruolo(ruolo.getNomeRuolo()));
+        for(Dipendente dipendente: nodoRadice.getDipendenti().keySet()) {
+            Ruolo ruolo = nodoRadice.getDipendenti().get(dipendente);
+            copia.aggiungiDipendente(new Dipendente(dipendente.getNome(), dipendente.getCognome()), new Ruolo(ruolo.getNomeRuolo()));
+        }
+        return copia;
+    }
+
 }

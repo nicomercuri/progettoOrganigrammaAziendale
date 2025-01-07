@@ -17,26 +17,10 @@ public class GestoreSalvataggi {
     }
 
     private void salvaStato(Organigramma organigramma) {
-        ultimoSalvataggio = new Memento(copiaOrganigramma(organigramma.getNodoRadice()));
-    }
-
-    private NodoComposito copiaOrganigramma(NodoComposito nodoRadice) {
-        NodoComposito copia = new NodoComposito(nodoRadice.getNome());
-        for(NodoIF nodoFiglio: nodoRadice.getFigli())
-            copia.aggiungiNodo(copiaOrganigramma((NodoComposito) nodoFiglio));
-        for(Ruolo ruolo: nodoRadice.getRuoli())
-            copia.aggiungiRuolo(new Ruolo(ruolo.getNomeRuolo()));
-        for(Dipendente dipendente: nodoRadice.getDipendenti().keySet()) {
-            Ruolo ruolo = nodoRadice.getDipendenti().get(dipendente);
-            copia.aggiungiDipendente(new Dipendente(dipendente.getNome(), dipendente.getCognome()), new Ruolo(ruolo.getNomeRuolo()));
-        }
-        return copia;
+        ultimoSalvataggio = organigramma.creaMemento();
     }
 
     public void caricaDaFile(String percorso, Organigramma organigramma) throws IOException, ClassNotFoundException {
-        if (organigramma == null) {
-            throw new IllegalArgumentException("Errore nel caricamento: organigramma non inizializzato");
-        }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(percorso))) {
             ultimoSalvataggio = (Memento) ois.readObject();
             if (ultimoSalvataggio != null) {
@@ -48,10 +32,7 @@ public class GestoreSalvataggi {
     }
 
     private void caricaStato(Organigramma organigramma) {
-        organigramma.reset();
-        organigramma.setNodoRadice(copiaOrganigramma(ultimoSalvataggio.getNodoRadice()));
-        //ricopiare la radice di ultimo salvataggio mi serve per isolarlo dall'organigramma
-        //e quindi lavorare su una copia e non direttamente su ultimo salvataggio
+        organigramma.ripristinaMemento(ultimoSalvataggio);
     }
 
 }
