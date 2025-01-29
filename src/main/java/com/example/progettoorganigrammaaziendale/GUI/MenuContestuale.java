@@ -5,6 +5,7 @@ import com.example.progettoorganigrammaaziendale.composite.Dipendente;
 import com.example.progettoorganigrammaaziendale.composite.NodoComposito;
 import com.example.progettoorganigrammaaziendale.composite.Ruolo;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
 import java.util.Set;
@@ -60,23 +61,26 @@ public class MenuContestuale extends JPopupMenu {
                 null
         );
         if (dipendenteDaRimuovere != null) {
-            Ruolo ruoloDIpendenteDaRimuovere = nodoSelezionato.getDipendenti().get(dipendenteDaRimuovere);
-            gestoreComandi.eseguiComando(new ComandoRimuoviDipendente(nodoSelezionato, dipendenteDaRimuovere,ruoloDIpendenteDaRimuovere));
+            Ruolo ruoloDipendenteDaRimuovere = nodoSelezionato.getDipendenti().get(dipendenteDaRimuovere);
+            gestoreComandi.eseguiComando(new ComandoRimuoviDipendente(nodoSelezionato, dipendenteDaRimuovere,ruoloDipendenteDaRimuovere));
         }
     }
 
     private void aggiungiDipendente(NodoComposito nodoSelezionato, GestoreComandi gestoreComandi) {
         JDialog dialog = new JDialog((Frame) null, "Aggiungi Dipendente", true);
-        dialog.setLayout(new GridLayout(4,2,10,3));
-        dialog.setSize(300,175);
+        dialog.setLayout(new GridLayout(4, 2, 10, 10));
+        dialog.setSize(320, 200);
         dialog.setLocationRelativeTo(null);
 
         JLabel labelNomeDipendente = new JLabel("Nome:");
+        labelNomeDipendente.setBorder(new EmptyBorder(0, 10, 0, 0)); //così nome, cognome e ruolo non stanno attaccati ai borid di sinistra
         JTextField textFieldNomeDipendente = new JTextField();
         JLabel labelCognomeDipendente = new JLabel("Cognome:");
+        labelCognomeDipendente.setBorder(new EmptyBorder(0, 10, 0, 0));
         JTextField textFieldCognomeDipendente = new JTextField();
 
         JLabel labelRuoloDipendente = new JLabel("Ruolo:");
+        labelRuoloDipendente.setBorder(new EmptyBorder(0, 10, 0, 0));
         JComboBox<Ruolo> comboRuoli =  new JComboBox<>();
         for(Ruolo ruolo: nodoSelezionato.getRuoli())
             comboRuoli.addItem(ruolo);

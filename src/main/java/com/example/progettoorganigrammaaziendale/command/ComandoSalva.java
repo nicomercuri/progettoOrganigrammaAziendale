@@ -21,7 +21,7 @@ public class ComandoSalva implements ComandoIF{
         try {
             gestoreSalvataggi.salvaSuFile(percorso, organigramma);
         } catch (IOException e) {
-            System.out.println("Errore durante il salvataggio: " + e.getMessage());
+            System.err.println("Errore durante il salvataggio: " + e.getMessage());
         }
     }
 

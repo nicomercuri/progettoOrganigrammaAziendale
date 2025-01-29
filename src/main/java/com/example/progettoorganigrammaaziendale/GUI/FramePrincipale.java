@@ -23,7 +23,7 @@ public class FramePrincipale extends JFrame {
 
         setLayout(new BorderLayout());
         add(new Toolbar(this), BorderLayout.NORTH);
-        add(new JScrollPane(pannelloOrganigramma), BorderLayout.CENTER);
+        add(new JScrollPane(pannelloOrganigramma), BorderLayout.CENTER); //esempio di decorator
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
@@ -33,10 +33,10 @@ public class FramePrincipale extends JFrame {
     private Organigramma caricaOCreaOrganigramma() {
         while (true) {
             int scelta = JOptionPane.showOptionDialog(this,
-                    "Vuoi caricare un organigramma esistente o crearne uno nuovo?",
-                    "Carica o Nuovo Organigramma",
+                    "Vuoi caricare un organigramma esistente da un file o crearne uno nuovo?",
+                    "Avvio organigramma",
                     JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
+                    JOptionPane.INFORMATION_MESSAGE,
                     null,
                     new String[]{"Carica", "Nuovo"},
                     "Nuovo");
@@ -46,6 +46,8 @@ public class FramePrincipale extends JFrame {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     String percorso = fileChooser.getSelectedFile().getAbsolutePath();
                     Organigramma nuovoOrganigramma = new Organigramma("Radice Temporanea");
+                    //l'operazione di sopra mi serve solamente per avviare un organigramma con un nome reale in modo che
+                    //poi venga sostituito dall'organigramma del file caricato
                     try {
                         ComandoCarica caricaComando = new ComandoCarica(gestoreSalvataggi, nuovoOrganigramma, percorso);
                         gestoreComandi.eseguiComando(caricaComando);

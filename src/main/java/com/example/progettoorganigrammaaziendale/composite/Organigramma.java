@@ -61,6 +61,7 @@ public class Organigramma implements Serializable {
         this.nodoRadice = memento.getNodoRadice();
     }
 
+
     private NodoComposito copiaOrganigramma(NodoComposito nodoRadice) {
         NodoComposito copia = new NodoComposito(nodoRadice.getNome());
         for(NodoIF nodoFiglio: nodoRadice.getFigli())

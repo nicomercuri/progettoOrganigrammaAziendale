@@ -18,8 +18,8 @@ public class PannelloOrganigramma extends JPanel {
     private GestoreComandi gestoreComandi;
     private Organigramma organigramma;
     private final Map<NodoComposito, Rectangle> posizioneNodi;
-    private int larghezzaMax = 0; //questi due attributi mi servono per far
-    private int altezzaMax = 0; //attivare le barre di scorrimento
+    private int larghezzaMax; //questi due attributi mi servono per far
+    private int altezzaMax; //attivare le barre di scorrimento
 
     public PannelloOrganigramma(GestoreComandi gestoreComandi, Organigramma organigramma) {
         this.gestoreComandi = gestoreComandi;
